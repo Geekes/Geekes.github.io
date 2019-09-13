@@ -14,6 +14,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
   
@@ -98,7 +109,7 @@
 <meta property="og:site_name" content="极客教程">
 <meta property="og:description" content="切换目录 cd /usr 切换到/usr目录下 注：Linux的文件系统和Windows不一样查看目录下的文件 lsls -lh ls 用来遍历当前目录下所有的文件和目录 ls -lh 遍历详细信息，如权限，所属用户，创建日期，大小等等信息查看当前所处目录 pwd 使用pwd命令来显示当前所处与的目录创建目录 m###### kdir -p /test/abc 创建目录 /test/abc -p的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-13T07:42:13.356Z">
+<meta property="og:updated_time" content="2019-09-13T11:49:37.891Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 常用命令">
 <meta name="twitter:description" content="切换目录 cd /usr 切换到/usr目录下 注：Linux的文件系统和Windows不一样查看目录下的文件 lsls -lh ls 用来遍历当前目录下所有的文件和目录 ls -lh 遍历详细信息，如权限，所属用户，创建日期，大小等等信息查看当前所处目录 pwd 使用pwd命令来显示当前所处与的目录创建目录 m###### kdir -p /test/abc 创建目录 /test/abc -p的">
@@ -111,7 +122,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -300,11 +311,15 @@
   <div id="posts" class="posts-expand">
     
 
+
   
 
   
   
   
+
+
+
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
@@ -346,7 +361,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-13T19:49:37+08:00">
+                2019-09-13
+              </time>
             
           </span>
 
@@ -462,6 +489,24 @@
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    yixuan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/09/11/Linux常用命令/" title="Linux 常用命令">http://yoursite.com/2019/09/11/Linux常用命令/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
 
   <div>
   
@@ -565,6 +610,8 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
     
     <div class="sidebar-inner">
 
@@ -712,6 +759,13 @@
       
 
       
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
 
     </div>
   </aside>
@@ -733,6 +787,17 @@
 
   <span class="author" itemprop="copyrightHolder">yixuan</span>
 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">全站字数:</span>
+    
+    <span title="Site words total count">2.6k</span>
+  
+</div>
 
 
 
@@ -744,16 +809,31 @@
 
 
 
+
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
 
 
-<div class="theme-info">
-  <div class="powered-by"></div>
-  <span class="post-count">博客全站共2.6k字</span>
-</div>
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("03/12/2019 12:49:00"); 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
         
 <div class="busuanzi-count">
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -784,13 +864,8 @@
 
         
       </div>
-    </div></footer>
+    </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     
