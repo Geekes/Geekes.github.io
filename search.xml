@@ -4,6 +4,545 @@
   
     
     <entry>
+      <title>Vue入门教程-选项</title>
+      <link href="/2020/02/01/Vue%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E9%80%89%E9%A1%B9/"/>
+      <url>/2020/02/01/Vue%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E9%80%89%E9%A1%B9/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue入门教程-内置组件</title>
+      <link href="/2020/02/01/Vue%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E5%86%85%E7%BD%AE%E7%BB%84%E4%BB%B6/"/>
+      <url>/2020/02/01/Vue%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E5%86%85%E7%BD%AE%E7%BB%84%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue入门教程-全局API</title>
+      <link href="/2020/02/01/Vue%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E5%85%A8%E5%B1%80API/"/>
+      <url>/2020/02/01/Vue%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E5%85%A8%E5%B1%80API/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Vue-directive自定义指令"><a href="#Vue-directive自定义指令" class="headerlink" title="Vue.directive自定义指令"></a>Vue.directive自定义指令</h1><h1 id="Vue-extend"><a href="#Vue-extend" class="headerlink" title="Vue.extend"></a>Vue.extend</h1><h1 id="Vue-set全局操作"><a href="#Vue-set全局操作" class="headerlink" title="Vue.set全局操作"></a>Vue.set全局操作</h1><h1 id="Vue-use"><a href="#Vue-use" class="headerlink" title="Vue.use"></a>Vue.use</h1><h1 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h1><p>下图展示了实例的生命周期<br><img src="/images/15.png" alt><br>Vue实例有一个完整的生命周期,从开始创建、初始化数据、挂载虚拟dom、渲染→更新→销毁等一系列过程,这是Vue的生命周期，<br>Vue实例从 创建到销毁的过程,就是生命周期<br>每个组件都会经历一个完整的生命周期,分为三个阶段:初始化、运行中、销毁<br>1.组件通过new Vue()创建出来之后会初始化事件和生命周期,执行beforeCreate钩子函数,数据还没挂载,无法访问到数据,一般不做操作<br>2.挂载数据、捆绑事件等，执行created函数,使用到数据或者更改数据,不会触发updated函数,渲染前倒数第二次更改数据,不会触发其他的钩子函数,一般做初始数据的获取<br>3.编译模板把虚拟dom放入到render函数中渲染，执行beforeMount钩子函数，虚拟dom已经创建完成，可以更改数据，不会触发updated，渲染前更改数据的机会，不会触发其他的钩子函数，一般做初始数据的获取<br>4.开始render，渲染虚拟dom，执行mounted钩子函数，组件已经出现在页面中，数据、dom都已经处理好了,事件都已经挂载好了，可以操作虚拟dom<br>5.当组件或虚拟dom的数据更改之后，会立即执行beforeUpdate，然后vue的dom机制会重新构建虚拟dom与上一次的虚拟dom树利用diff算法进行对比之后重新渲染<br>6.当更新完成后，执行updated，数据已经更改完成，虚拟dom也重新render完成，可以操作更新后的虚拟dom<br>7.当经过某种途径调用$destroy方法后，立即执行beforeDestroy，一般在这里做一些其他事件，例如清除计时器、清除非指令绑定的事件等<br>8.组件的数据绑定、监听…去掉后只剩下虚拟dom空壳,执行destroyed，一般在这里做一些其他事件<br><img src="/images/16.jpg" alt></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">   &lt;test&gt;&lt;/test&gt;    </span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;template id=&quot;test&quot;&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">    &lt;p class=&quot;list&quot;&gt;组件&lt;/p&gt;</span><br><span class="line">    &lt;button @click=&quot;destroy&quot;&gt;destroy&lt;/button&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; v-model=&quot;test&quot;&gt;</span><br><span class="line">    &lt;p&gt;test:&#123;&#123;test&#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    Vue.component(&quot;test&quot;,&#123;</span><br><span class="line">        template:&quot;#test&quot;,</span><br><span class="line">        data:function()&#123;</span><br><span class="line">            return &#123;test:&apos;hello vue&apos;&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        timer:null,</span><br><span class="line">        methods:&#123;</span><br><span class="line">            destroy:function()&#123;</span><br><span class="line">                this.$destroy()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeCreate:function()&#123;</span><br><span class="line">            console.log(&apos;new vue() 数据没挂载&apos;)</span><br><span class="line">            console.log(this.test)</span><br><span class="line">            console.log(document.getElementsByClassName(&quot;test&quot;)[0])</span><br><span class="line">        &#125;,</span><br><span class="line">        created:function()&#123;</span><br><span class="line">            console.log(&quot;created已经可以使用数据,更改数据不会触发update函数&quot;)</span><br><span class="line">            this.test+=&apos;——&apos;</span><br><span class="line">            console.log(&apos;渲染倒数第二次更改数据,不触发其他的钩子函数，做初始化数据的获取&apos;)</span><br><span class="line">            console.log(&apos;编译模板将虚拟dom放入rende函数中准备渲染&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeMount:function()&#123;</span><br><span class="line">                console.log(&apos;beforeMount:虚拟dom创建完成,更改数据不会触发update&apos;)</span><br><span class="line">                this.test+=&apos;极客教程&apos;</span><br><span class="line">                console.log(document.getElementsByClassName(&quot;test&quot;)[0])</span><br><span class="line">                console.log(&apos;开始render，渲染虚拟dom&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted:function()&#123;</span><br><span class="line">                console.log(&apos;组件出现在页面,数据、虚拟dom处理完毕,事件完成挂载&apos;)</span><br><span class="line">                console.log(document.getElementsByClassName(&quot;test&quot;)[0])</span><br><span class="line">                console.log(&apos;操作虚拟dom&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeUpdate:function()&#123;</span><br><span class="line">            //这里不能更改数据,否则陷入死循环</span><br><span class="line">            console.log(&apos;beforeUpdate:重新渲染之前触发&apos;)</span><br><span class="line">            console.log(&apos;vue的虚拟dom机制重新构建虚拟dom与上次的虚拟dom利用diff算法进行对比之后重新渲染&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        updated:function()&#123;</span><br><span class="line">            //这里不能更改数据,否则陷入死循环</span><br><span class="line">            console.log(&apos;updated:数据更改,重新render完成&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeDestroy:function()&#123;</span><br><span class="line">            console.log(&apos;beforeDestroy:销毁前执行($test方法被调用的时候会执行),清除计时器、清除非指令绑定的事件等&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        destroyed:function()&#123;</span><br><span class="line">            console.log(&apos;destroyed:组件的数据绑定、监听&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    new Vue(&#123;</span><br><span class="line">    &#125;).$mount(&apos;#app&apos;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">生命周期钩子    详细</span><br><span class="line">beforeCreate    在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用</span><br><span class="line">created    实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算， watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见</span><br><span class="line">beforeMount    在挂载开始之前被调用：相关的 render 函数首次被调用</span><br><span class="line">mounted    el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内</span><br><span class="line">beforeUpdate    数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程</span><br><span class="line">updated    由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作</span><br><span class="line">activated    keep-alive 组件激活时调用</span><br><span class="line">deactivated    keep-alive 组件停用时调用</span><br><span class="line">beforeDestroy    实例销毁之前调用。在这一步，实例仍然完全可用</span><br><span class="line">destroyed    Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁</span><br></pre></td></tr></table></figure><h1 id="Template-制作模版"><a href="#Template-制作模版" class="headerlink" title="Template 制作模版"></a>Template 制作模版</h1><h1 id="Component-组件"><a href="#Component-组件" class="headerlink" title="Component 组件"></a>Component 组件</h1><h1 id="Component-组件props-属性设置"><a href="#Component-组件props-属性设置" class="headerlink" title="Component 组件props 属性设置"></a>Component 组件props 属性设置</h1><h1 id="Component-父子组件关系"><a href="#Component-父子组件关系" class="headerlink" title="Component 父子组件关系"></a>Component 父子组件关系</h1><h1 id="Component-标签"><a href="#Component-标签" class="headerlink" title="Component 标签"></a>Component 标签</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> Vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ES6入门</title>
+      <link href="/2020/01/23/ES6%E5%85%A5%E9%97%A8/"/>
+      <url>/2020/01/23/ES6%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ES6环境搭建"><a href="#ES6环境搭建" class="headerlink" title="ES6环境搭建"></a>ES6环境搭建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g babel-cli</span><br></pre></td></tr></table></figure><h2 id="安装babel-preset-es2015和babel-cli"><a href="#安装babel-preset-es2015和babel-cli" class="headerlink" title="安装babel-preset-es2015和babel-cli"></a>安装babel-preset-es2015和babel-cli</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-preset-es2015 babel-cli</span><br></pre></td></tr></table></figure><h2 id="在项目的根目录添加一个-babelrc文件-并添加内容"><a href="#在项目的根目录添加一个-babelrc文件-并添加内容" class="headerlink" title="在项目的根目录添加一个.babelrc文件,并添加内容"></a>在项目的根目录添加一个.babelrc文件,并添加内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;presets&quot;:[</span><br><span class="line">        &quot;es2015&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;plugins&quot;: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="可以通过命令进行转换-ES6转化为ES5的语法"><a href="#可以通过命令进行转换-ES6转化为ES5的语法" class="headerlink" title="可以通过命令进行转换,ES6转化为ES5的语法"></a>可以通过命令进行转换,ES6转化为ES5的语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">babel src/index.js -o dist/index.js</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;es6&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;babel src/index.js -o dist/index.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;babel-cli&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">    &quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> ES6 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ES6 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue-cli入门</title>
+      <link href="/2020/01/23/Vue-cli%E5%85%A5%E9%97%A8/"/>
+      <url>/2020/01/23/Vue-cli%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<p>Vue CLI 的包名称由 vue-cli 改成了 @vue/cli。 如果已经全局安装了旧版本的 vue-cli(1.x 或 2.x)，需要先通过 npm uninstall vue-cli -g 或 yarn global remove vue-cli 卸载它</p><p>可以在命令行中访问 vue 命令来验证它是否安装成功</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue -V</span><br></pre></td></tr></table></figure><p>用这个命令来检查其版本是否正确 (3.x)：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue --version</span><br></pre></td></tr></table></figure><p>查看其他命令可以使用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vue -h</span><br><span class="line">Usage: vue &lt;command&gt; [options]</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -V, --version                              output the version number</span><br><span class="line">  -h, --help                                 output usage information</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  create [options] &lt;app-name&gt;                create a new project powered by vue-cli-service  // 创建一个由vue-cli-service 支持的新项目</span><br><span class="line">  add [options] &lt;plugin&gt; [pluginOptions]     install a plugin and invoke its generator in an already created project   // 在已有的项目中添加插件</span><br><span class="line">  invoke [options] &lt;plugin&gt; [pluginOptions]  invoke the generator of a plugin in an already created project // 在开发者模式下零配置运行一个js或vue文件</span><br><span class="line">  inspect [options] [paths...]               inspect the webpack config in a project with vue-cli-service   // 在vue-cli-service的项目中检查webpack配置 </span><br><span class="line">  serve [options] [entry]                    serve a .js or .vue file in development mode with zero config  // 可以理解为开发环境下启动命令</span><br><span class="line">  build [options] [entry]                    build a .js or .vue file in production mode with zero config   // 打包 （在生产模式下零配置构建一个js或者vue文件）</span><br><span class="line">  ui [options]                               start and open the vue-cli ui  // vue3.0提供的一个UI </span><br><span class="line">  init [options] &lt;template&gt; &lt;app-name&gt;       generate a project from a remote template (legacy API, requires @vue/cli-init)  // // 旧api 需要@vue/cli-init // 就是原来的vue-cli init &lt;template&gt; &lt;app-name&gt;</span><br><span class="line">  config [options] [value]                   inspect and modify the config // 项目配置文件</span><br><span class="line">  upgrade [semverLevel]                      upgrade vue cli service / plugins (default semverLevel: minor) // 更新插件或者配置文件</span><br><span class="line">  info                                       print debugging information about your environment  // 打印出来vue配置文件</span><br><span class="line"></span><br><span class="line">  Run vue &lt;command&gt; --help for detailed usage of given command.</span><br></pre></td></tr></table></figure><p>安装：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br><span class="line"># OR</span><br><span class="line">yarn global add @vue/cli</span><br></pre></td></tr></table></figure><p>创建一个项目：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vue create 项目名称(必须小写)</span><br><span class="line"># OR vue ui</span><br></pre></td></tr></table></figure><p>两种选择方式，第一种是默认的(一路回车)，第二种手动配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Vue CLI v3.3.0</span><br><span class="line">? Please pick a preset: (Use arrow keys)</span><br><span class="line">&gt; default (babel, eslint)</span><br><span class="line">  Manually select features</span><br></pre></td></tr></table></figure><p>手动配置(选择需要的模块，上下移动，空格进行确定)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Vue CLI v3.3.0? Please pick a preset: Manually select features</span><br><span class="line">? Check the features needed for your project: (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection)</span><br><span class="line">&gt;(*) Babel  //es6转换器</span><br><span class="line"> ( ) TypeScript //使用js的超类语言TypeScript</span><br><span class="line"> ( ) Progressive Web App (PWA) Support //PWA单页应用 </span><br><span class="line"> ( ) Router  //使用路由</span><br><span class="line"> ( ) Vuex  //使用vue状态管理器</span><br><span class="line"> ( ) CSS Pre-processors //css预处理,如less,sass等</span><br><span class="line"> (*) Linter / Formatter //Eslint安装</span><br><span class="line"> ( ) Unit Testing //Unit单元测试</span><br><span class="line"> ( ) E2E Testing //E2E单元测试</span><br></pre></td></tr></table></figure><p>选择需要的模块</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Vue CLI v3.3.0</span><br><span class="line">? Please pick a preset: Manually select features</span><br><span class="line">? Check the features needed for your project:</span><br><span class="line"> (*) Babel</span><br><span class="line"> ( ) TypeScript</span><br><span class="line"> ( ) Progressive Web App (PWA) Support</span><br><span class="line"> (*) Router</span><br><span class="line"> (*) Vuex</span><br><span class="line">&gt;(*) CSS Pre-processors</span><br><span class="line"> (*) Linter / Formatter</span><br><span class="line"> ( ) Unit Testing</span><br><span class="line"> ( ) E2E Testing</span><br></pre></td></tr></table></figure><p>模块安装询问</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Vue CLI v3.3.0</span><br><span class="line">? Please pick a preset: Manually select features</span><br><span class="line">? Check the features needed for your project: Babel, Router, Vuex, CSS Pre-processors, Linter</span><br><span class="line">? Use history mode for router? (Requires proper server setup for index fallback in production) (Y/n)</span><br></pre></td></tr></table></figure><p>选择Y接下步骤</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Vue CLI v3.3.0</span><br><span class="line">? Please pick a preset: Manually select features</span><br><span class="line">? Check the features needed for your project: Babel, Router, Vuex, CSS Pre-processors, Linter</span><br><span class="line">? Use history mode for router? (Requires proper server setup for index fallback in production) Yes //是否使用history模式,这里选的是Yes</span><br><span class="line">? Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default): Less //选择css预处理器,这里选的Less</span><br><span class="line">? Pick a linter / formatter config: Prettier //选择Linter / Formatter规范类型</span><br><span class="line">? Pick additional lint features: (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection)</span><br><span class="line">&gt;(*) Lint on save // 保存并且检测 (一般选择这个)</span><br><span class="line"> ( ) Lint and fix on commit // fix和commit检查</span><br></pre></td></tr></table></figure><p>选择了router，Less，ESlint—Prettier作为代码检查</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue CLI v3.3.0</span><br><span class="line">? Please pick a preset: Manually select features</span><br><span class="line">? Check the features needed for your project: Babel, Router, Vuex, CSS Pre-processors, Linter</span><br><span class="line">? Use history mode for router? (Requires proper server setup for index fallback in production) Yes</span><br><span class="line">? Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default): Less</span><br><span class="line">? Pick a linter / formatter config: Prettier</span><br><span class="line">? Pick additional lint features: (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection)Lint on save</span><br><span class="line">? Where do you prefer placing config for Babel, PostCSS, ESLint, etc.? (Use arrow keys)</span><br><span class="line">&gt; In dedicated config files  // 独立文件夹</span><br><span class="line">  In package.json  // 放入package.json里 (一般选择这个)</span><br></pre></td></tr></table></figure><p>babel .eslint这些文件放在独立的文件里还是package.json里</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue CLI v3.3.0</span><br><span class="line">? Please pick a preset: Manually select features</span><br><span class="line">? Check the features needed for your project: Babel, Router, Vuex, CSS Pre-processors, Linter</span><br><span class="line">? Use history mode for router? (Requires proper server setup for index fallback in production) Yes</span><br><span class="line">? Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default): Less</span><br><span class="line">? Pick a linter / formatter config: Prettier</span><br><span class="line">? Pick additional lint features: (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection)Lint on save</span><br><span class="line">? Where do you prefer placing config for Babel, PostCSS, ESLint, etc.? In package.json</span><br><span class="line">? Save this as a preset for future projects? (y/N) N </span><br><span class="line">//是否记录下，以便下次继续使用这套配置</span><br></pre></td></tr></table></figure><p>选择N不记录<br>安装后移动到目录并启动</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd 项目名称  // 进入项目目录 </span><br><span class="line">npm run serve  //运行项目</span><br></pre></td></tr></table></figure><p><img src="/images/19.png" alt><br>查看下目录结构<br><img src="/images/20.png" alt></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">|-- node_modules                 # 依赖包的文件夹</span><br><span class="line">|-- dist                         # 打包后文件夹            </span><br><span class="line">|-- public                       # 静态文件夹                                   </span><br><span class="line">|   |-- favicon.ico              # 图标  </span><br><span class="line">|   |-- index.html               # 入口页面</span><br><span class="line">|-- src                          # 资源目录         </span><br><span class="line">|   |--assets                    # 模块资源</span><br><span class="line">|   |--components                # vue公共组件</span><br><span class="line">|   |--views                     #页面目录文件</span><br><span class="line">|   |--App.vue                   # 页面入口文件</span><br><span class="line">|   |--main.js                   # 入口文件,加载公共组件</span><br><span class="line">|   |--router.js                 # 路由配置</span><br><span class="line">|   |--store.js                  # 状态管理</span><br><span class="line">|-- vue.config.js                # 配置文件</span><br><span class="line">|-- .gitignore                   # git忽略上传的文件格式</span><br><span class="line">|-- babel.config.js              # babel语法编译</span><br><span class="line">|-- package.json                 # 项目基本信息</span><br><span class="line">|--package-lock.json             # 依赖版本锁定文件</span><br><span class="line">|--README.md                     # README文件</span><br></pre></td></tr></table></figure><p>在两种情况下会去安装依赖：<br>（1）项目运行缺少该依赖包：例如项目加载外部css会用到的css-loader，路由跳转vue-loader等（安装方法示例：npm install css-loader）<br>（2）安装插件：如vux（基于WEUI的移动端组件库），vue-swiper（轮播插件）<br>注：有时会安装指定依赖版本，需在依赖包名称后加上版本号信息，如安装11.1.4版本的vue-loader，输入npm install <a href="mailto:vue-loader@11.1.4" target="_blank" rel="noopener">vue-loader@11.1.4</a><br>main.js——(入口文件)<br>main.js主要是引入vue框架，根组件及路由设置，并且定义vue实例<br><img src="/images/21.jpg" alt><br>index.html——(主页)<br>index.html如其他html一样，一般只定义一个空的根节点，在main.js里面定义的实例将挂载在根节点下，内容都通过vue组件来填充<img src="/images/22.jpg" alt><br>App.vue——(根组件)<br>一个vue页面通常由三部分组成:模板(template)、js(script)、样式(style)<img src="/images/23.jpg" alt><br>router——(路由配置)<br>router.js，即为路由配置文件<br>router下的index.js<br>定义了路径为’/‘的路由，该路由对应的页面是HelloWorld组件，所以当我们在浏览器url访问<a href="http://localhost:8080/#/" target="_blank" rel="noopener">http://localhost:8080/#/</a> 时就渲染的HelloWorld组件<br>可以设置多个路由，’/index’,’/list’之类的，首先得引入该组件，再为该组件设置路由<img src="/images/24.jpg" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue-router入门</title>
+      <link href="/2020/01/23/Vue-router%E5%85%A5%E9%97%A8/"/>
+      <url>/2020/01/23/Vue-router%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<p>Vue Router是Vue.js官方的路由管理器。Vue Router和Vue.js 的核心深度集成,让构建单页面应用变得易如反掌。包含的功能有:</p><ul><li>嵌套的路由/视图表</li><li>模块化的、基于组件的路由配置</li><li>路由参数、查询、通配符</li><li>基于 Vue.js 过渡系统的视图过渡效果</li><li>细粒度的导航控制</li><li>带有自动激活的 CSS class 的链接</li><li>HTML5 历史模式或 hash 模式，在 IE9 中自动降级</li><li>自定义的滚动条行为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-router --save-dev</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Borland传奇</title>
+      <link href="/2020/01/19/Borland%E4%BC%A0%E5%A5%87/"/>
+      <url>/2020/01/19/Borland%E4%BC%A0%E5%A5%87/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件编年史 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件编年史 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java前世今生</title>
+      <link href="/2020/01/19/Java%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"/>
+      <url>/2020/01/19/Java%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件编年史 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件编年史 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Blogge前世今生</title>
+      <link href="/2020/01/19/Blogger%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"/>
+      <url>/2020/01/19/Blogger%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件编年史 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件编年史 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一个失败的操作系统MULTICS</title>
+      <link href="/2020/01/19/%E4%B8%80%E4%B8%AA%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FMULTICS/"/>
+      <url>/2020/01/19/%E4%B8%80%E4%B8%AA%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FMULTICS/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件编年史 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件编年史 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一家伟大公司之死</title>
+      <link href="/2020/01/19/%E4%B8%80%E5%AE%B6%E4%BC%9F%E5%A4%A7%E5%85%AC%E5%8F%B8%E4%B9%8B%E6%AD%BB/"/>
+      <url>/2020/01/19/%E4%B8%80%E5%AE%B6%E4%BC%9F%E5%A4%A7%E5%85%AC%E5%8F%B8%E4%B9%8B%E6%AD%BB/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件编年史 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件编年史 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>React教程-入门和组件</title>
+      <link href="/2020/01/13/React%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8%E5%92%8C%E7%BB%84%E4%BB%B6/"/>
+      <url>/2020/01/13/React%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8%E5%92%8C%E7%BB%84%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<p>#React简介<br>React起源于facebook公司,起初用于Instagram网站开发,React是一个用于构建用户界面的javascript类库,不是一个MVC框架,提出了一种新的开发模式与理念,它强调的是”用户界面”。<br>React官方地址:<a href="https://reactjs.org" target="_blank" rel="noopener">https://reactjs.org</a><br>GitHub地址:<a href="https://github.com/facebook/react" target="_blank" rel="noopener">https://github.com/facebook/react</a><br>阅读本教程前需要了解的知识：<br>在开始学习React之前,需要具备以下基础知识:<br>HTML+CSS 需要会基本的html和css知识,学习起来更加容易上手。<br>JavaScript 需要扎实的JS能力,React的组件都会使用JS编写,JS基础越好,学习起来越来越容易。</p><p>#React特点:<br>虚拟DOM:虚拟DOM顾名思义不是真实的DOM,它不需要浏览器的DOM API支持。虚拟DOM是在DOM的基础上建立一个抽象层,其实质是一个JavaScript对象,当数据和状态发生了变化，都会被自动高效的同步到虚拟DOM中,最后再将仅变化的部分同步到DOM中<br>组件化:组件是React的核心,一个完整的React应用是由若干个组件搭建起来的，每个组件有自己的数据和方法，组件具体如何划分，需要根据不同的项目来确定<br>单项数据流:react是单向数据流,父组件传递给子组件的数据,子组件能够使用,子组件要传值给父组件,或者要修改父组件的代码,都是要通过父组件传递过来的方法去实现</p><p>#环境搭建</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script crossorigin src=&quot;https://unpkg.com/react@16/umd/react.production.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script crossorigin src=&quot;https://unpkg.com/react-dom@16/umd/react-dom.production.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure><p>##JSX简介<br>JSX是JavaScript XML语法扩展</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;js/react.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;js/react-dom.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;js/babel.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;example&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">       var example =React.createClass(&#123;</span><br><span class="line">            render:function()&#123;</span><br><span class="line">                return React.createElement(&apos;h1&apos;,null,&apos;Hello world&apos;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        ReactDOM.render(</span><br><span class="line">            React.createElement(example,null),</span><br><span class="line">            document.getElementById(&apos;example&apos;)</span><br><span class="line">        )</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> React </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> React </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker入门教程</title>
+      <link href="/2019/11/10/Docker%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/11/10/Docker%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Nginx入门教程</title>
+      <link href="/2019/11/10/Nginx%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/11/10/Nginx%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Nginx </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHP入门教程</title>
+      <link href="/2019/10/29/PHP%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/10/29/PHP%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JavaScript入门教程</title>
+      <link href="/2019/10/21/JavaScript%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/10/21/JavaScript%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>使用外部的JS文件<br>JavaScript文件的扩展名.js</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;JS文档URL&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure><p>书写于文档的头部</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">   ...</span><br><span class="line">   ...</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure><p>JavaScript的三个主要组成部分是:ECMAScript(核心),DOM（文档对象模型）,BOM（浏览器对象模型）<br><img src="/images/17.PNG" alt><br>数据类型<br>ECMAScript中有5种基本数据类型:Undefined、Null、Boolean、Number和String,还有一种复杂数据类型-Object,Object本质上是由一组无序的名值对组成的<br>字符型(string),必须括在单引号/双引号之间<br>  转义符:<br>  \n,换行<br>  \r,回车<br>  \t,水平制表符<br>  \v,垂直制表符<br>  \,反斜线<br>  &#39;,单引号<br>  &quot;,双引号<br>数值型(Number),可以存储整数或浮点数,可以带有符号位<br>布尔型(Boolean),只有true和false<br>数据类型的自动转换<br>字符+数字:数字转换成字符<br>数字+布尔:布尔转换成数字(true=&gt;1,false=&gt;0)<br>字符+布尔:布尔转换成字符(true=&gt;”true”,false=&gt;”false”)<br>布尔+布尔:布尔转换成数字(true=&gt;1,false=&gt;0)<br>数据类型的强制转换<br>parseInt,转换成整数<br>parseFloat,转换成浮点型<br>变量<br>[var] 变量名称;<br>[var] 变量名称 = 值;<br>说明:建议在声明变量时使用var关键字<br>typeof操作符<br>检测变量的数据类型-typeof,负责提供这方面信息的操作符,对一个值使用typeof操作符可能返回下列某个字符串:<br>“undefined”-如果这个值未定义<br>“boolean”-如果这个值是布尔值<br>“string”-如果这个值是字符串<br>“number”-如果这个值是数值<br>“object”-如果这个值是对象或null<br>“function”-如果这个值是函数<br>JavaScript的内置对象<br>String<br>创建String对象<br>直接量方式<br>var object = ‘值’;<br>var object = “值”;<br>构造函数方式<br>var object  = new String(“value”);<br>属性<br>length<br>描述:获取字符串的长度<br>语法:int object.length<br>方法<br>toLowerCase()<br>描述:转换成小写字母<br>语法:string object.toLowerCase()<br>toUpperCase()<br>描述:转换成大写字母<br>语法:string object.toUpperCase()<br>substr()<br>描述:截取字符串<br>语法:string object.substr(int start[,int length])<br>说明:<br>A.字符从0开始编号<br>B.起始位置为负数,则倒数<br>substring()<br>描述:截取字符串<br>语法:string object.substring(start[,end])<br>说明:包含起始位置,但不包含结束位置。<br>indexOf()<br>描述:返回一个字符串在另一个字符串第一次出现的位置<br>语法:int object.indexOf(string str[,int start])<br>说明:如果没有出现则返回-1<br>lastIndexOf()<br>描述:返回一个字符串在另一个字符串最后一次出现的位置<br>语法:int object.lastIndexOf(string str[,int start])<br>说明:如果没有出现则返回-1<br>charAt(int pos) 等价于 substr(int pos,1)<br>replace()<br>描述:字符替换<br>语法:string object.replace(object regExp,string replacement)<br>split<br>描述:将字符串拆分成数组<br>语法:array object.split(string separator)<br>Math<br>属性<br>Math.PI<br>Math.SQRT2<br>方法<br>Math.ceil()<br>描述:向上取整<br>语法:int Math.ceil(float val)<br>Math.floor()<br>描述:向下取整<br>语法:int Math.floor(float val)<br>Math.pow()<br>描述:幂运算<br>语法:float Math.pow(float base ,float exp)<br>Math.sqrt()<br>描述:平方<br>语法:float Math.sqrt(float val)<br>Math.min()<br>描述:返回最小值<br>语法:float Math.min(float val,float val,….)<br>Math.max()<br>描述:返回最大值<br>语法:float Math.max(float val,float val,….)<br>Math.round()<br>描述:四舍五入<br>语法:float Math.round(float val)<br>说明:保留到整数位。<br>Math.random()<br>描述:产生随机数<br>语法:float Math.random()<br>Array<br>创建数组<br> 直接量方式<br> var object = [值,….]<br> 构建函数方式<br> var object  = new Array(值,…)<br> 属性<br> length<br> 描述:返回数组成员的数量<br> 语法:int object.length<br>  访问数组成员<br>  数组名称[下标]<br>  说明:数组的下标从0开始。<br>   for…in语句<br>   作用:遍历数组/对象<br>   语法:<br>   for(变量名称 in 数组/对象){<br>        …<br>    }<br>    方法<br>    join()<br>    描述:将数组成员连接成字符串<br>    语法:string object.join([string separator])<br>    push()<br>    描述:在数组的未尾添加一个或多个成员<br>    语法:int object.push(val,…)<br>    unshift()<br>    描述:在数组的开头添加一个或多个成员<br>    语法:int object.unshift(val,…)<br>    pop()<br>    描述:删除数组的最后一个成员，并且返回该成员<br>    语法:val object.pop()<br>    shift()<br>    描述:删除数组的第一个成员，并且返回该成员<br>    语法:val object.shift()<br>    slice()<br>    描述:截取数组<br>    语法:array object.slice(start[,end])<br>    reverse()<br>    描述:数组反转<br>    语法:array object.reverse()<br>Date<br>创建Date对象<br>var object = new Date()<br>方法<br>getYear()<br>描述:获取年份<br>语法:int object.getYear()<br>getFullYear()<br>描述:获取年份<br>语法:int object.getFullYear()<br>getMonth()<br>描述:获取月份(取值范围为0~11)<br>语法:int object.getMonth()<br>getDate()<br>描述:获取日期(多少号)<br>语法:int object.getDate()<br>getDay()<br>描述:获取星期的第几天(0为星期日,依次类推)<br>语法:int object.getDay()<br>getHours()<br>描述:获取小时<br>语法:int object.getHours()<br>getMinutes()<br>描述:获取分钟<br>语法:int object.getMinutes()<br>getSeconds()<br>描述:获取秒<br>语法:int object.getSeconds()<br>getTime()<br>描述:获取毫秒<br>语法:int object.getTime()<br>自定义函数<br>什么是自定义函数<br>完成某种功能的代码段。<br>创建自定义函数<br>function 函数名称([参数[,…]]){<br>    …<br>    …<br>    [return 返回值]<br>}<br>调用自定义函数<br>[var 变量名称=] 函数名称([值[,…]])<br>什么是DOM?<br>DOM[Document Object Model],文档对象模型。<br>DOM提供处理XML/HTML文档的API。<br>DOM的主要操作:节点的获取、节点的动态的创建、创建的删除及节点的替换。<br>节点(Node),在DOM树中所存在的任何一个元素(如HTML元素，文本、属性等)。<br>节点的类型<br>Node.ELEMENT_NODE,1(元素类型)<br>Node.ATTRIBUTE_NODE,2(属性类型)<br>Node.TEXT_NODE,3(文本类型)<br>Node.COMMENT_NODE,8(注释类型)<br>Node.DOCUMENT_NODE,9(文档类型)<br>document对象<br>属性<br>方法<br>getElementById()<br>描述:根据ID获取对象<br>语法:Element document.getElementById(string id)<br>createElement()<br>描述:创建元素节点<br>语法:Element document.createElement(string tagName)<br>createTextNode<br>描述:创建文本节点<br>语法:textNode document.createTextNode(string value)<br>createComment<br>描述:创建注释节点<br>语法:commentNode document.createComment(string value)<br>createAttribute<br>描述:创建属性节点<br>语法:attrNode document.createAttribute(string name)<br>Node接口<br>属性<br>firstChild<br>lastChild<br>nextSibling<br>previousSibling<br>parentNode<br>childNodes<br>nodeName<br>nodeType<br>nodeValue<br>方法<br>appendChild()<br>描述:追加子节点<br>语法:object.appendChild(node)<br>insertBefore()<br>描述:插入子节点<br>语法:object.insertBefore(newNode[,refNode])</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaScript </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>小程序入门教程</title>
+      <link href="/2019/10/15/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/10/15/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 小程序 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 小程序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Node.js入门教程</title>
+      <link href="/2019/10/14/Nodejs%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/10/14/Nodejs%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Node.js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Node.js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python入门教程</title>
+      <link href="/2019/10/14/Python%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/10/14/Python%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>命名规则<br>1、字母/数字/下划线<br>2、只能以字母或下划线开头<br>3、不能包含空格<br>4、避免python关键字或函数名<br>5、区分大小写<br>python中数有四种类型:整数、长整数、浮点数和复数</p><p>Python基本数据类型<br>Python中有六个标准的数据类型:<br>Numbers（数字）<br>String（字符串）<br>List（列表）<br>Tuple（元组）<br>Sets（集合）<br>Dictionaries（字典）</p><p>Numbers（数字）</p><p>Python支持int、float、bool、complex（复数）<br>内置的type()函数可以用来查询变量所指的对象类型<br>Python函数</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def  函数名（参数列表）：</span><br><span class="line">函数体</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Gulp入门</title>
+      <link href="/2019/10/13/Gulp%E5%85%A5%E9%97%A8/"/>
+      <url>/2019/10/13/Gulp%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<p>Gulp是什么？<br>Gulp是一个开源的JavaScript的开源自动化工具<br>Gulp应用于前后端代码管理的一种工具<br>Gulp基于Node.js和NPM应用的构建工具,能够极大的提高开发效率<br>Gulp主要用于处理耗时及重复的任务,让Gulp自动执行任务<br>Gulp可以处理解决任务 例如:压缩代码 合并代码等<br>Gulp的工作原理<br>Gulp是基于node.js中的数据流、主要使用pipe时间输入及输出、插件独立使用<br>Gulp安装<br>请确保已经安装node.js环境<br>全局安装</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g gulp</span><br></pre></td></tr></table></figure><p>检查Gulp是否安装成功</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp -v</span><br></pre></td></tr></table></figure><p>本地安装</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure><p>一路回车,生成package.json文件<br>本地安装Gulp</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev gulp</span><br></pre></td></tr></table></figure><p>Gulp API介绍<br>Gulp的核心API只有4个：task、watch、src、dest</p><h1 id="常用的方法"><a href="#常用的方法" class="headerlink" title="常用的方法"></a>常用的方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gulp.task --定义任务</span><br><span class="line">gulp.src --找到需要执行任务的文件</span><br><span class="line">gulp.dest --执行任务的文件的去处</span><br><span class="line">gulp.watch --观察文件是否发生变化</span><br></pre></td></tr></table></figure><p>项目的文件放在本地src/文件夹中，项目结构为：</p><p>├── gulpfile.js<br>├── node_modules<br>├── …<br>├── package.json<br>└── src<br>├── js<br>│ ├── a.js<br>│ └── b.js<br>└── scss<br>├── c.scss<br>└── d.scss</p><h1 id="gulp-task-name-deps-fn"><a href="#gulp-task-name-deps-fn" class="headerlink" title="gulp.task(name[, deps], fn)"></a>gulp.task(name[, deps], fn)</h1><p>gulp使用gulp.task函数创建任务<br>name:任务名称<br>deps:任务列表,这些任务会在当前任务运行之前被执行;当这个任务依赖于其他任务时,可以把任务写入列表中,否则可以不写<br>fn:任务函数,可以把要执行的代码都写在这个函数中,该参数也是可选的</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//处理任务</span><br><span class="line">var  gulp = require(&apos;gulp&apos;);    //引用gulp</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;one&apos;, function()&#123;</span><br><span class="line">console.log(&apos;task one&apos;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;two&apos;, [&apos;one&apos;], function()&#123;</span><br><span class="line">console.log(&apos;task two&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>gulp.task创建了one和two任务,该two任务依赖one任务<br>使用gulp命令执行two任务</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp two</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">//task()：定义任务</span><br><span class="line">//src():源文件</span><br><span class="line">// pipe():管道流，接通源头文件与目标文件的输出</span><br><span class="line">// dest():输出文件的目的地</span><br><span class="line">// watch():监视文件</span><br><span class="line">//事例:</span><br><span class="line">//处理任务</span><br><span class="line">var  gulp = require(&apos;gulp&apos;);    //引用gulp</span><br><span class="line">var  del = require(&apos;del&apos;);      //引用gulp删除插件</span><br><span class="line">var  rename = require(&quot;gulp-rename&quot;);　　//引用重命名插件</span><br><span class="line"></span><br><span class="line">// 1.复制单个文件</span><br><span class="line">gulp.task(&quot;copyhtml&quot;,function()&#123;</span><br><span class="line">gulp.src(&quot;src/index.html&quot;)</span><br><span class="line">.pipe(gulp.dest(&quot;dist&quot;));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 2.复制多个文件</span><br><span class="line">gulp.task(&quot;copyallhtml&quot;,function()&#123;</span><br><span class="line">gulp.src(&quot;src/*.html&quot;)</span><br><span class="line">.pipe(gulp.dest(&quot;dist&quot;)); </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 3、复制指定文件</span><br><span class="line">// [指定的文件已，指定的文件2]</span><br><span class="line">gulp.task(&apos;copyjs&apos;,function () &#123;</span><br><span class="line">    return gulp.src([&quot;./src/public/js/index.js&quot;,&apos;dist/public/js/index1.js&apos;])</span><br><span class="line">    .pipe(gulp.dest(&quot;dist/public/js&quot;))</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">// 4、某个文件</span><br><span class="line">// ！排队的文件</span><br><span class="line">gulp.task(&quot;copyJs&quot;,function () &#123;</span><br><span class="line">    return gulp.src([&apos;./src/public/js/*.js&apos;,&apos;!./src/public/js/index2.js&apos;])</span><br><span class="line">        .pipe(gulp.dest(&apos;dist/public/js&apos;))</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">// 5、复制多个后缀名的图片</span><br><span class="line">// &#123;选项一，选项二&#125;</span><br><span class="line">gulp.task(&quot;copyImage&quot;,function () &#123;</span><br><span class="line">    return gulp.src(&apos;./src/public/img/*.&#123;png,jpg,bmp,jpeg,gif&#125;&apos;)</span><br><span class="line">        .pipe(gulp.dest(&apos;dist/public/img&apos;))</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">// 6、执行多个任务</span><br><span class="line">// gulp.task(&apos;任务名称&apos;,[任务依赖的模块],回调函数)</span><br><span class="line">// 依赖任务之间没有顺序之分，异步执行</span><br><span class="line">// 依赖任务之间完成后，在执行当前的回调函数</span><br><span class="line">gulp.task(&apos;build&apos;,[&apos;copyallhtml&apos;,&apos;copyJs&apos;,&apos;copyImage&apos;],function () &#123;</span><br><span class="line">    console.log(&apos;编译成功&apos;)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">// 7、Watch:监视文件的变化</span><br><span class="line">gulp.task(&apos;myWatch&apos;,function () &#123;</span><br><span class="line">    gulp.watch(&apos;./src/public/index.html&apos;,[&apos;build&apos;])</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">// 8、删除文件</span><br><span class="line">gulp.task(&quot;del&quot;,function () &#123;</span><br><span class="line">    // del(&apos;./dist/public/img/*.&#123;jpg,png,jepg,gif&#125;&apos;)</span><br><span class="line">    // *：所有文件</span><br><span class="line">    // **：所有文件夹</span><br><span class="line">    del([&apos;./dist/public/js/*&apos;]);</span><br><span class="line">    del([&apos;./dist/**/*&apos;]);</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">gulp.task(&apos;default&apos;,function () &#123;</span><br><span class="line">    gulp.start(&apos;serve&apos;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">//9、重命名css文件</span><br><span class="line">gulp.task(&apos;reName&apos;,function () &#123;</span><br><span class="line">    return gulp.src(&apos;./src/public/sass/*.css&apos;)</span><br><span class="line">        .pipe(rename(&#123;suffix: &apos;.css&apos;&#125;))</span><br><span class="line">        .pipe(css())</span><br><span class="line">        .pipe(gulp.dest(&apos;./src/public/sass&apos;))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><h2 id="gulp-uglify-JS压缩"><a href="#gulp-uglify-JS压缩" class="headerlink" title="gulp-uglify(JS压缩)"></a>gulp-uglify(JS压缩)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-uglify --save-dev</span><br></pre></td></tr></table></figure><h2 id="gulp-minify-html-html压缩）"><a href="#gulp-minify-html-html压缩）" class="headerlink" title="gulp-minify-html(html压缩）"></a>gulp-minify-html(html压缩）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-minify-html --save-dev</span><br></pre></td></tr></table></figure><h2 id="gulp-concat-js文件合并"><a href="#gulp-concat-js文件合并" class="headerlink" title="gulp-concat(js文件合并)"></a>gulp-concat(js文件合并)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev gulp-concat</span><br></pre></td></tr></table></figure><h2 id="gulp-less"><a href="#gulp-less" class="headerlink" title="gulp-less"></a>gulp-less</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-less --save-dev</span><br></pre></td></tr></table></figure><h2 id="gulp-jada"><a href="#gulp-jada" class="headerlink" title="gulp-jada"></a>gulp-jada</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-jada --save-dev</span><br></pre></td></tr></table></figure><h2 id="gulp-sass"><a href="#gulp-sass" class="headerlink" title="gulp-sass"></a>gulp-sass</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-sass --save-dev</span><br></pre></td></tr></table></figure><h2 id="gulp-imagemin（图片压缩）"><a href="#gulp-imagemin（图片压缩）" class="headerlink" title="gulp-imagemin（图片压缩）"></a>gulp-imagemin（图片压缩）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-imagemin --save-dev</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">//处理任务</span><br><span class="line">var  gulp = require(&apos;gulp&apos;);    //引用gulp</span><br><span class="line">var  uglify = require(&apos;gulp-uglify&apos;);　　//引用压缩Js插件</span><br><span class="line">var  css = require(&apos;gulp-clean-css&apos;);　　//gulp压缩css文件</span><br><span class="line">var minifyHtml = require(&quot;gulp-minify-html&quot;);  //gulp压缩html文件</span><br><span class="line">var concat= require(&quot;gulp-concat&quot;); //gulp合并js文件</span><br><span class="line">var jade= require(&apos;gulp-jade&apos;);</span><br><span class="line">var less= require(&quot;gulp-less&quot;);</span><br><span class="line">var sass= require(&quot;gulp-sass&quot;);</span><br><span class="line">var imagemin = require(&apos;gulp-imagemin&apos;);</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;minify-html&apos;,function() &#123;</span><br><span class="line">      gulp.src(&apos;src/**/*.html&apos;)//要压缩的html文件</span><br><span class="line">     .pipe(minifyHtml())//压缩</span><br><span class="line">     .pipe(gulp.dest(&apos;build&apos;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;default&apos;,[&apos;minify-html&apos;]);</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;concat&apos;,function() &#123;</span><br><span class="line">       gulp.src(&apos;src/**/*.js&apos;)  //要合并的文件</span><br><span class="line">       .pipe(concat(&apos;index.js&apos;))  //合并匹配到的js文件并命名为 &quot;index.js&quot;</span><br><span class="line">       .pipe(gulp.dest(&apos;build/js&apos;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;default&apos;,[&apos;concat&apos;]);</span><br><span class="line"></span><br><span class="line">gulp.task(&quot;jade&quot;,function()&#123;</span><br><span class="line">gulp.src(&quot;./jade/*.jade&quot;)</span><br><span class="line">      .pipe(jade(&#123;</span><br><span class="line">      pretty:true</span><br><span class="line">&#125;))</span><br><span class="line">    .pipe(gulp.dest(&quot;html/&quot;));</span><br><span class="line">&#125;);</span><br><span class="line"> gulp.task(&quot;default&quot;,[&quot;watch&quot;],function()&#123;</span><br><span class="line">       gulp.watch(&quot;jade/*.jade&quot;,[&quot;jade&quot;]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 检查、编译scss文件后，保存到build/css中</span><br><span class="line">gulp.task(&apos;sass&apos;, function()&#123;</span><br><span class="line">gulp.src(&apos;src/sass/*.sass&apos;)</span><br><span class="line">.pipe(sass())</span><br><span class="line">.pipe(gulp.dest(&apos;build/css&apos;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;default&apos;,[&apos;sass&apos;]);</span><br><span class="line"></span><br><span class="line">// 检查、编译less文件后，保存到build/css中</span><br><span class="line">gulp.task(&apos;less&apos;, function()&#123;</span><br><span class="line">gulp.src(&apos;src/less/*.less&apos;)</span><br><span class="line">.pipe(less())</span><br><span class="line">.pipe(gulp.dest(&apos;build/css&apos;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;default&apos;,[&apos;less&apos;]);</span><br><span class="line"></span><br><span class="line">//图片压缩</span><br><span class="line">gulp.task(&apos;imagemin&apos;,function() &#123;returngulp.src(&apos;src/images/*&apos;)</span><br><span class="line">       .pipe(imagemin())</span><br><span class="line">       .pipe(gulp.dest(&apos;build/images&apos;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;default&apos;,[&apos;imagemin&apos;]);</span><br><span class="line"></span><br><span class="line">// 检查js语法后，保存到build/js中</span><br><span class="line">gulp.task(&apos;js&apos;, function()&#123;</span><br><span class="line">gulp.src(&apos;src/js/*.js&apos;)</span><br><span class="line">.pipe(jshint())</span><br><span class="line">.pipe(gulp.dest(&apos;build/js&apos;));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 监听文件变化</span><br><span class="line">gulp.task(&quot;watch&quot;, function()&#123;</span><br><span class="line"></span><br><span class="line">/ 监听src目录下的sass、js文件</span><br><span class="line">gulp.watch(&apos;src/**/*.+(sass|js)&apos;, [&apos;sass&apos;, &apos;js&apos;]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 压缩css、js文件</span><br><span class="line">gulp.task(&apos;dist&apos;, [&apos;sass&apos;, &apos;js&apos;], function()&#123;</span><br><span class="line"></span><br><span class="line">// 压缩css文件</span><br><span class="line">gulp.src(&apos;build/css/*.css&apos;)</span><br><span class="line">.pipe(cssmin())</span><br><span class="line">.pipe(rename(&#123;</span><br><span class="line">suffix: &quot;.min&quot;, // 文件名后缀加上&quot;.min&quot;</span><br><span class="line">&#125;)).pipe(gulp.dest(&apos;dist/css&apos;));</span><br><span class="line"></span><br><span class="line">// 压缩js文件</span><br><span class="line">gulp.src(&apos;build/js/*.js&apos;)</span><br><span class="line">.pipe(uglify())</span><br><span class="line">.pipe(rename(&#123;</span><br><span class="line">suffix: &quot;.min&quot;, // 文件名后缀加上&quot;.min&quot;</span><br><span class="line">&#125;)).pipe(gulp.dest(&apos;dist/js&apos;));</span><br><span class="line">&#125;);</span><br><span class="line">gulp.task(&apos;default&apos;, [&quot;sass&quot;, &quot;js&quot;, &quot;watch&quot;]);</span><br></pre></td></tr></table></figure><h1 id="gulp-src-globs-options"><a href="#gulp-src-globs-options" class="headerlink" title="gulp.src(globs[, options])"></a>gulp.src(globs[, options])</h1><p>实例:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 读取src/scss/目录下scss文件</span><br><span class="line">gulp.src(&apos;src/scss/*.scss&apos;)</span><br><span class="line">.pipe(sass())</span><br><span class="line">.pipe(gulp.dest(&apos;build/css&apos;));</span><br></pre></td></tr></table></figure><p>gulp使用gulp.src函数读取文件,然后将文件内容转换成stream流后通过pipe传输给其他的任务,最终通过gulp.dest将处理结果写入文件中,整个流程如下:<br><img src="/images/16.PNG" alt></p><h2 id="列出globs参数的匹配规则："><a href="#列出globs参数的匹配规则：" class="headerlink" title="列出globs参数的匹配规则："></a>列出globs参数的匹配规则：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">*:匹配0到多个字符</span><br><span class="line">*.js:匹配js文件</span><br><span class="line">*.css:匹配css文件</span><br><span class="line">**：匹配0到多个目录或文件;如:</span><br><span class="line">src/**/*.js:匹配src/目录下所有的js文件</span><br><span class="line">?:匹配一个字符;如:</span><br><span class="line">?.js：匹配a.js和b.js,不能匹配ab.js</span><br><span class="line">!:不匹配</span><br><span class="line">!*.js:不匹配js文件</span><br><span class="line">[字符]:匹配方括号内出现字符的任意一个;如：</span><br><span class="line">[abc].js:匹配a.js、b.js、c.js</span><br><span class="line">[^abc].js:不匹配a.js、b.js、c.js</span><br><span class="line">(模式1|模式2):匹配括号内任意一个模式,可与*、+、?和!作为前缀组合使用；如:</span><br><span class="line">*.+(js|css):匹配js文件或css文件</span><br></pre></td></tr></table></figure><h1 id="gulp-dest-path-options"><a href="#gulp-dest-path-options" class="headerlink" title="gulp.dest(path[, options])"></a>gulp.dest(path[, options])</h1><p>将stream流写入文件<br>path:写入文件的目录<br>options:可选参数,一般不用,可以忽略<br>实例:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 编译scss文件后，保存到build/css/目录中</span><br><span class="line">gulp.src(&apos;src/scss/*.scss&apos;)</span><br><span class="line">.pipe(sass())</span><br><span class="line">.pipe(gulp.dest(&apos;build/css&apos;));</span><br></pre></td></tr></table></figure><h1 id="gulp-watch-glob-opts-tasks"><a href="#gulp-watch-glob-opts-tasks" class="headerlink" title="gulp.watch(glob[, opts], tasks)"></a>gulp.watch(glob[, opts], tasks)</h1><p>gulp.watch用来监视文件内容是否变化<br>glob:文件匹配模式,规则与gulp.src中的glob参数一样<br>opts:可选参数,一般不用,可以忽略<br>task:任务列表,当glob匹配的文件有变化时,就会执行该列表中的任务<br>实例:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp.watch(&apos;src/**/*.+(scss|js)&apos;, [&apos;sass&apos;, &apos;js&apos;]);</span><br></pre></td></tr></table></figure><p>监控src/目录下所有的scss文件和js文件,如果有文件内容发送变化,则顺序执行sass、js任务</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Gulp </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Gulp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>TypeScript入门教程</title>
+      <link href="/2019/10/13/TypeScript%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2019/10/13/TypeScript%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>TypeScript是一种由微软开发的自由和开源的编程语言。它是JavaScript 的一个超集,而且本质上向这个语言添加了可选的静态类型和基于类的面向对象编程<br>TypeScript扩展了JavaScript 的句法，所以任何现有的JavaScript 程序可以不加改变的在TypeScript下工作。TypeScript 是为大型应用之开发而设计,而编译时它产生JavaScript以确保兼容性。TypeScript 支持为已存在的JavaScript库添加类型信息的头文件,扩展了它对于流行的库如jQuery, MongoDB,Node.js的好处<br>安装Node.js<br>安装Node.js官网下载一个最新版本:<a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/</a><br>安装好后,可以打开命令行工具,输入命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure><p>安装TypeScript包<br>输入如下命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install typescript -g</span><br><span class="line">tsc --version</span><br></pre></td></tr></table></figure><p>Typescript特性<br>TypeScript是一种给JavaScript添加特性的语言扩展。<br>● 类型批注和编译时类型检查<br>●类<br>●接口<br>●模块<br>●lambda函数<br>TypeScript中的数据类型有:<br>Undefined:<br>Number:数值类型<br>string:字符串类型<br>Boolean:布尔类型<br>enum:枚举类型<br>any:任意类型<br>void:空类型<br>Array:数组类型<br>Tuple:元组类型<br>Null:空类型<br>TypeScript基本类型<br>1、声明一个boolean类型默认值是false<br>在JavaScript和TypeScript中也具有最基本的逻辑断言值true/false,采用boolean类型</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var isFlag:boolean=false;</span><br></pre></td></tr></table></figure><p>2、声明一个number类型值如:JavaScript,TypeScript 所有的数值类型采用浮点型计数,其类型为number</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var orderNumber:number=100;</span><br></pre></td></tr></table></figure><p>3、声明一个String类型<br>在webpages的JavaScript或者服务端的应用程序最基本的功能就是处理文本数据。在其他语 言中大多使用string去代表文本数据类型。<br>TypeScript和JavaScript一样也是用双引号(“)或者单引号包裹文本数据</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var userName:string=&quot;TypeScript&quot;;</span><br></pre></td></tr></table></figure><p>4、数组Array<br>在TypeScript中如JavaScript一样允许我们操结合操作。数组类型可以使用下边两种方式之<br>第一种方式,你可以在数据类型之后带上’[]‘:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var list:number[] = [1, 2, 3];</span><br></pre></td></tr></table></figure><p>第二种方式,也可以采用泛型的数组类型：泛型数组</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var list1:Array&lt;number&gt;=[1, 2, 3];</span><br></pre></td></tr></table></figure><p>5、枚举Enum<br>TypeScript为JavaScript新增了枚举这种标准的集合数据类型。和在 c#中一样,枚举是为一组数值类型一组更友好的名称</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">enum 关键字 枚举对象&#123;声明变量&#125;</span><br><span class="line">enum Color &#123;Red, Green, Blue&#125;;</span><br><span class="line">var c1: Color = Color.Green;</span><br><span class="line">从枚举里面拿出绿色出来赋给一个叫c的变量</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum Color1 &#123;Red = 1, Green = 2, Blue = 4&#125;;</span><br><span class="line">var c2: Color1 = Color1.Green;</span><br><span class="line">enum Color2 &#123;Red = 1, Green, Blue&#125;;</span><br><span class="line">var colorName: string = Color2[2];</span><br><span class="line">alert(colorName);</span><br></pre></td></tr></table></figure><p>6、any<br>any类型是一种强大的兼容存在的JavaScript库的类型系统。允许跳过TypeScript的编 译时类型的检查。any类型对于我们只知道部分数据类型，但是不是所有的数据类型的类型系统。如一个混合了多种类型的集合数组</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var notSure:any = 4;</span><br></pre></td></tr></table></figure><p>notSure这个是不确定的值,默认先给一个数字4</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">notSure = &quot;TypeScript&quot;;</span><br></pre></td></tr></table></figure><p>改变这个值为TypeScript<br>7、void 函数的返回值</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function hello():void&#123;</span><br><span class="line"> console.log(TypeScript);</span><br><span class="line">&#125;</span><br><span class="line">function tes():string&#123;</span><br><span class="line">return &quot;TypeScript&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>8、元组</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let arr:[string,nubmer]=[&quot;TypeScript&quot;,10]</span><br></pre></td></tr></table></figure><p>9、undefined null</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let x = undefined;</span><br></pre></td></tr></table></figure><p>10、联合类型</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x:number | string | boolean;</span><br><span class="line">x =[1,2,3]</span><br></pre></td></tr></table></figure><p>11、类型断言</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let x:number | string | boolean=&quot;TypeScript&quot;;</span><br><span class="line">let srrlength:number=(&lt;string&gt;x5).length</span><br><span class="line"></span><br><span class="line">let srrlengths:number=(x5 as string).length</span><br></pre></td></tr></table></figure><p>12.TypeScript接口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//定义接口</span><br><span class="line">interface index&#123;</span><br><span class="line">Printing(mes:string):string;</span><br><span class="line">&#125;</span><br><span class="line">//实现接口</span><br><span class="line">class indexs  implements index&#123;</span><br><span class="line">Printing(mes:string):string&#123;</span><br><span class="line">return mes;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let x = new indexs()</span><br><span class="line">let val =x.Printing(&quot;TypeScript&quot;)</span><br><span class="line">console.log(val)</span><br></pre></td></tr></table></figure><p>对函数的约束</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface myfunction()&#123;</span><br><span class="line">(a:string,b:number):boolean;</span><br><span class="line">&#125;</span><br><span class="line">let fun = myfunction;</span><br><span class="line">fun = function(a:string,b:number):boolean&#123;</span><br><span class="line">return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>对数组</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface Arr&#123;</span><br><span class="line">[index:number]:string;</span><br><span class="line">&#125;</span><br><span class="line">let arr:Arr;</span><br><span class="line">arr=[&quot;TypeScript&quot;,&quot;hello&quot;]</span><br><span class="line">console.log(arr[0])</span><br></pre></td></tr></table></figure><p>json</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">interface Data&#123;</span><br><span class="line">name:string,</span><br><span class="line">readonly age:number, //只读属性</span><br><span class="line">email?:string //可选属性</span><br><span class="line">&#125;</span><br><span class="line">function showdata(n:Data)&#123;</span><br><span class="line"> console.log(JSON.stringify(n));</span><br><span class="line">&#125;</span><br><span class="line">showdata(&#123;name:&quot;张三&quot;,age:30&#125;)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> TypeScript </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> TypeScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Jquery入门</title>
+      <link href="/2019/10/09/Jquery%E5%85%A5%E9%97%A8/"/>
+      <url>/2019/10/09/Jquery%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Jquery </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Jquery </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用vue-cli axios配置跨域代理访问数据</title>
+      <link href="/2019/09/18/%E4%BD%BF%E7%94%A8vue-cli-axios%E9%85%8D%E7%BD%AE%E8%B7%A8%E5%9F%9F%E4%BB%A3%E7%90%86%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE/"/>
+      <url>/2019/09/18/%E4%BD%BF%E7%94%A8vue-cli-axios%E9%85%8D%E7%BD%AE%E8%B7%A8%E5%9F%9F%E4%BB%A3%E7%90%86%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>HTML基础</title>
       <link href="/2019/09/17/HTML%E5%9F%BA%E7%A1%80/"/>
       <url>/2019/09/17/HTML%E5%9F%BA%E7%A1%80/</url>
@@ -29,36 +568,11 @@
     
     
     <entry>
-      <title>Vue生命周期</title>
-      <link href="/2019/09/17/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-      <url>/2019/09/17/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+      <title>Vue入门教程-内置指令</title>
+      <link href="/2019/09/16/Vue%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E5%86%85%E7%BD%AE%E6%8C%87%E4%BB%A4/"/>
+      <url>/2019/09/16/Vue%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E5%86%85%E7%BD%AE%E6%8C%87%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[<h1 id="创建一个Vue实例"><a href="#创建一个Vue实例" class="headerlink" title="创建一个Vue实例"></a>创建一个Vue实例</h1><p>每个Vue应用都是通过用Vue函数创建一个新的Vue实例开始的:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  // 选项</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>虽然没有完全遵循MVVM模型,但是Vue 的设计也受到了它的启发。在文档中经常会使用vm(ViewModel 的缩写) 这个变量名表示Vue实例<br>当创建一个Vue实例时,你可以传入一个选项对象<br>一个Vue应用由一个通过new Vue创建的根Vue 实例,以及可选的嵌套的、可复用的组件树组成。一个todo 应用的组件树可以是这样的:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">根实例</span><br><span class="line">└─ TodoList</span><br><span class="line">   ├─ TodoItem</span><br><span class="line">   │  ├─ DeleteTodoButton</span><br><span class="line">   │  └─ EditTodoButton</span><br><span class="line">   └─ TodoListFooter</span><br><span class="line">      ├─ ClearTodosButton</span><br><span class="line">      └─ TodoListStatistics</span><br></pre></td></tr></table></figure><h1 id="数据与方法"><a href="#数据与方法" class="headerlink" title="数据与方法"></a>数据与方法</h1><p>当一个Vue实例被创建时,它将data对象中的所有的属性加入到Vue的响应式系统中当这些属性的值发生改变时,视图将会产生”响应”,即匹配更新为新的值</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 数据对象</span><br><span class="line">var data = &#123; a: 2 &#125;</span><br><span class="line"></span><br><span class="line">// 该对象被加入到一个 Vue 实例中</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  data: data</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 获得这个实例上的属性</span><br><span class="line">// 返回源数据中对应的字段</span><br><span class="line">vm.a == data.a // =&gt; true</span><br><span class="line"></span><br><span class="line">// 设置属性也会影响到原始数据</span><br><span class="line">vm.a = 3</span><br><span class="line">data.a // =&gt; 4</span><br><span class="line">//返回数据</span><br><span class="line">data.a = 4</span><br><span class="line">vm.a // =&gt; 4</span><br></pre></td></tr></table></figure><p>当这些数据改变时,视图会进行重渲染。只有当实例被创建时data中存在的属性才是响应式的 也就是说添加一个新的属性,比如:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.b = &apos;vue&apos;</span><br></pre></td></tr></table></figure><p>那么对b的改动将不会触发任何视图的更新,在晚些时候需要一个属性 但是一开始它为空或不存在，仅需要设置一些初始值。比如:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  newTodoText: &apos;&apos;,</span><br><span class="line">  visitCount: 0,</span><br><span class="line">  hideCompletedTodos: false,</span><br><span class="line">  todos: [],</span><br><span class="line">  error: null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="生命周期图示"><a href="#生命周期图示" class="headerlink" title="生命周期图示"></a>生命周期图示</h1><p>下图展示了实例的生命周期<br><img src="/images/15.png" alt><br>Vue实例有一个完整的生命周期,从开始创建、初始化数据、挂载虚拟dom、渲染→更新→销毁等一系列过程,这是Vue的生命周期，<br>Vue实例从 创建到销毁的过程,就是生命周期<br>每个组件都会经历一个完整的生命周期,分为三个阶段:初始化、运行中、销毁<br>1.组件通过new Vue()创建出来之后会初始化事件和生命周期,执行beforeCreate钩子函数,数据还没挂载,无法访问到数据,一般不做操作<br>2.挂载数据、捆绑事件等，执行created函数,使用到数据或者更改数据,不会触发updated函数,渲染前倒数第二次更改数据,不会触发其他的钩子函数,一般做初始数据的获取<br>3.编译模板把虚拟dom放入到render函数中渲染，执行beforeMount钩子函数，虚拟dom已经创建完成，可以更改数据，不会触发updated，渲染前更改数据的机会，不会触发其他的钩子函数，一般做初始数据的获取<br>4.开始render，渲染虚拟dom，执行mounted钩子函数，组件已经出现在页面中，数据、dom都已经处理好了,事件都已经挂载好了，可以操作虚拟dom<br>5.当组件或虚拟dom的数据更改之后，会立即执行beforeUpdate，然后vue的dom机制会重新构建虚拟dom与上一次的虚拟dom树利用diff算法进行对比之后重新渲染<br>6.当更新完成后，执行updated，数据已经更改完成，虚拟dom也重新render完成，可以操作更新后的虚拟dom<br>7.当经过某种途径调用$destroy方法后，立即执行beforeDestroy，一般在这里做一些其他事件，例如清除计时器、清除非指令绑定的事件等<br>8.组件的数据绑定、监听…去掉后只剩下虚拟dom空壳,执行destroyed，一般在这里做一些其他事件<br><img src="/images/16.jpg" alt></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">   &lt;test&gt;&lt;/test&gt;    </span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;template id=&quot;test&quot;&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">    &lt;p class=&quot;list&quot;&gt;组件&lt;/p&gt;</span><br><span class="line">    &lt;button @click=&quot;destroy&quot;&gt;destroy&lt;/button&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; v-model=&quot;test&quot;&gt;</span><br><span class="line">    &lt;p&gt;test:&#123;&#123;test&#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    Vue.component(&quot;test&quot;,&#123;</span><br><span class="line">        template:&quot;#test&quot;,</span><br><span class="line">        data:function()&#123;</span><br><span class="line">            return &#123;test:&apos;hello vue&apos;&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        timer:null,</span><br><span class="line">        methods:&#123;</span><br><span class="line">            destroy:function()&#123;</span><br><span class="line">                this.$destroy()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeCreate:function()&#123;</span><br><span class="line">            console.log(&apos;new vue() 数据没挂载&apos;)</span><br><span class="line">            console.log(this.test)</span><br><span class="line">            console.log(document.getElementsByClassName(&quot;test&quot;)[0])</span><br><span class="line">        &#125;,</span><br><span class="line">        created:function()&#123;</span><br><span class="line">            console.log(&quot;created已经可以使用数据,更改数据不会触发update函数&quot;)</span><br><span class="line">            this.test+=&apos;——&apos;</span><br><span class="line">            console.log(&apos;渲染倒数第二次更改数据,不触发其他的钩子函数，做初始化数据的获取&apos;)</span><br><span class="line">            console.log(&apos;编译模板将虚拟dom放入rende函数中准备渲染&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeMount:function()&#123;</span><br><span class="line">                console.log(&apos;beforeMount:虚拟dom创建完成,更改数据不会触发update&apos;)</span><br><span class="line">                this.test+=&apos;极客教程&apos;</span><br><span class="line">                console.log(document.getElementsByClassName(&quot;test&quot;)[0])</span><br><span class="line">                console.log(&apos;开始render，渲染虚拟dom&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted:function()&#123;</span><br><span class="line">                console.log(&apos;组件出现在页面,数据、虚拟dom处理完毕,事件完成挂载&apos;)</span><br><span class="line">                console.log(document.getElementsByClassName(&quot;test&quot;)[0])</span><br><span class="line">                console.log(&apos;操作虚拟dom&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeUpdate:function()&#123;</span><br><span class="line">            //这里不能更改数据,否则陷入死循环</span><br><span class="line">            console.log(&apos;beforeUpdate:重新渲染之前触发&apos;)</span><br><span class="line">            console.log(&apos;vue的虚拟dom机制重新构建虚拟dom与上次的虚拟dom利用diff算法进行对比之后重新渲染&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        updated:function()&#123;</span><br><span class="line">            //这里不能更改数据,否则陷入死循环</span><br><span class="line">            console.log(&apos;updated:数据更改,重新render完成&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeDestroy:function()&#123;</span><br><span class="line">            console.log(&apos;beforeDestroy:销毁前执行($test方法被调用的时候会执行),清除计时器、清除非指令绑定的事件等&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        destroyed:function()&#123;</span><br><span class="line">            console.log(&apos;destroyed:组件的数据绑定、监听&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    new Vue(&#123;</span><br><span class="line">    &#125;).$mount(&apos;#app&apos;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">生命周期钩子    详细</span><br><span class="line">beforeCreate    在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用</span><br><span class="line">created    实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算， watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见</span><br><span class="line">beforeMount    在挂载开始之前被调用：相关的 render 函数首次被调用</span><br><span class="line">mounted    el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内</span><br><span class="line">beforeUpdate    数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程</span><br><span class="line">updated    由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作</span><br><span class="line">activated    keep-alive 组件激活时调用</span><br><span class="line">deactivated    keep-alive 组件停用时调用</span><br><span class="line">beforeDestroy    实例销毁之前调用。在这一步，实例仍然完全可用</span><br><span class="line">destroyed    Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Vue </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Vue </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Vue简介</title>
-      <link href="/2019/09/16/Vue%E7%AE%80%E4%BB%8B/"/>
-      <url>/2019/09/16/Vue%E7%AE%80%E4%BB%8B/</url>
-      
-        <content type="html"><![CDATA[<p><img src="/images/14.PNG" alt><br>Vue.js (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。 与其它大型框架不同的是，Vue.js 被设计为可以自底向上逐层应用。 Vue .js的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。 另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue也完全能够为复杂的单页应用提供驱动。 VUE 的方式 1. 首先导入 vue.js 要用到的库：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vue.min.js&lt;script src=&quot;js/vue.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">同样准备一个div元素，其id是app</span><br><span class="line">在js中准备json数据&apos;Hello Vue.js!&apos;</span><br><span class="line">在视图div中，就可以通过如下方式把数据取出来了</span><br></pre></td></tr></table></figure><p>使用CDN方法 以下推荐国外比较稳定的两个CDN，国内还没发现哪一家比较好，目前还是建议下载到本地<br>Staticfile CDN（国内）：https：//cdn.staticfile.org/vue/2.2.2/vue.min.js<br>unpkg：https：//unpkg.com/vue/dist/vue.js<br>cdnjs：https：//cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;测试&lt;/title&gt;</span><br><span class="line">&lt;script src=&quot;vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">//准备数据</span><br><span class="line">  &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">//通过vue.min.js把数据和对应的视图关联起来</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: &apos;Hello Vue.js!&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p><img src="/images/14.PNG" alt><br>Vue.js (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。 与其它大型框架不同的是，Vue.js 被设计为可以自底向上逐层应用。 Vue .js的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。 另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue也完全能够为复杂的单页应用提供驱动。 VUE 的方式 1. 首先导入 vue.js 要用到的库：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;js/vue.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">同样准备一个div元素，其id是app</span><br><span class="line">在js中准备json数据&apos;Hello Vue.js!&apos;</span><br><span class="line">在视图div中，就可以通过如下方式把数据取出来了</span><br></pre></td></tr></table></figure><p>使用CDN方法 以下推荐国外比较稳定的两个CDN,目前还是建议下载到本地<br>Staticfile CDN（国内）：https：//cdn.staticfile.org/vue/2.2.2/vue.min.js<br>unpkg：https：//unpkg.com/vue/dist/vue.js<br>cdnjs：https：//cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js、</p><h1 id="编写第一个Hello-Vue-js代码"><a href="#编写第一个Hello-Vue-js代码" class="headerlink" title="编写第一个Hello Vue.js代码:"></a>编写第一个Hello Vue.js代码:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;测试&lt;/title&gt;</span><br><span class="line">&lt;script src=&quot;vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">//准备数据</span><br><span class="line">  &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">//通过vue.min.js把数据和对应的视图关联起来</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: &apos;Hello Vue.js!&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><h1 id="v-if-v-else-v-show指令"><a href="#v-if-v-else-v-show指令" class="headerlink" title="v-if v-else v-show指令"></a>v-if v-else v-show指令</h1><h2 id="v-if的使用"><a href="#v-if的使用" class="headerlink" title="v-if的使用"></a>v-if的使用</h2><p>条件判断使用v-if指令:<br>通过toggle函数切换show的值。通过v-if语句,当show是true的时候.显示当前元素</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;条件语句&lt;/title&gt;</span><br><span class="line">&lt;script src=&quot;vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line"> &lt;button v-on:click=&quot;toggle&quot;&gt;隐藏或显示&lt;/button&gt;</span><br><span class="line"> &lt;div v-if=&quot;show&quot;&gt;学习Vue&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    show:true</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">      toggle: function()&#123;</span><br><span class="line">          this.show=!this.show;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><h2 id="v-else的使用"><a href="#v-else的使用" class="headerlink" title="v-else的使用"></a>v-else的使用</h2><p>可以用 v-else 指令给 v-if 添加一个 “else” 块：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;条件语句&lt;/title&gt;</span><br><span class="line">&lt;script src=&quot;vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">  &lt;button v-on:click=&quot;toggle&quot;&gt;学习&lt;/button&gt;</span><br><span class="line"> &lt;div v-if=&quot;show&quot;&gt;学习Vue&lt;/div&gt;</span><br><span class="line"> &lt;div v-else&gt;入门到放弃&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    show:false</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">      toggle: function()&#123;</span><br><span class="line"></span><br><span class="line">    this.show = Math.random()&lt;0.1            </span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><h1 id="v-for指令"><a href="#v-for指令" class="headerlink" title="v-for指令"></a>v-for指令</h1><h1 id="v-text-amp-v-html指令"><a href="#v-text-amp-v-html指令" class="headerlink" title="v-text &amp; v-html指令"></a>v-text &amp; v-html指令</h1><h1 id="v-on指令"><a href="#v-on指令" class="headerlink" title="v-on指令"></a>v-on指令</h1><h1 id="v-model指令"><a href="#v-model指令" class="headerlink" title="v-model指令"></a>v-model指令</h1><h1 id="v-bind指令"><a href="#v-bind指令" class="headerlink" title="v-bind指令"></a>v-bind指令</h1><h1 id="v-pre-amp-v-cloak-amp-v-once-指令"><a href="#v-pre-amp-v-cloak-amp-v-once-指令" class="headerlink" title="v-pre &amp; v-cloak &amp; v-once 指令"></a>v-pre &amp; v-cloak &amp; v-once 指令</h1><h2 id="v-pre"><a href="#v-pre" class="headerlink" title="v-pre"></a>v-pre</h2><h2 id="v-cloak"><a href="#v-cloak" class="headerlink" title="v-cloak"></a>v-cloak</h2><h2 id="v-once"><a href="#v-once" class="headerlink" title="v-once"></a>v-once</h2>]]></content>
       
       
       <categories>
