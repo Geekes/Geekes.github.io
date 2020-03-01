@@ -110,7 +110,7 @@
 <meta property="og:description" content="Vue.js (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。 与其它大型框架不同的是，Vue.js 被设计为可以自底向上逐层应用。 Vue .js的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。 另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue也完全能够为复杂的单页应用提供驱动。 VUE 的方式 1. 首先导入 vue.js 要用到">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://geekes.github.io/images/14.PNG">
-<meta property="og:updated_time" content="2020-02-01T10:55:43.551Z">
+<meta property="og:updated_time" content="2020-02-07T15:38:32.939Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue入门教程-内置指令">
 <meta name="twitter:description" content="Vue.js (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。 与其它大型框架不同的是，Vue.js 被设计为可以自底向上逐层应用。 Vue .js的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。 另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue也完全能够为复杂的单页应用提供驱动。 VUE 的方式 1. 首先导入 vue.js 要用到">
@@ -376,8 +376,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-01T18:55:43+08:00">
-                2020-02-01
+              <time title="更新于" itemprop="dateModified" datetime="2020-02-07T23:38:32+08:00">
+                2020-02-07
               </time>
             
           </span>
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  758
+                  760
                 </span>
               
 
@@ -474,7 +474,7 @@
 <p>使用CDN方法 以下推荐国外比较稳定的两个CDN,目前还是建议下载到本地<br>Staticfile CDN（国内）：https：//cdn.staticfile.org/vue/2.2.2/vue.min.js<br>unpkg：https：//unpkg.com/vue/dist/vue.js<br>cdnjs：https：//cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js、</p>
 <h1 id="编写第一个Hello-Vue-js代码"><a href="#编写第一个Hello-Vue-js代码" class="headerlink" title="编写第一个Hello Vue.js代码:"></a>编写第一个Hello Vue.js代码:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;测试&lt;/title&gt;</span><br><span class="line">&lt;script src=&quot;vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">//准备数据</span><br><span class="line">  &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">//通过vue.min.js把数据和对应的视图关联起来</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: &apos;Hello Vue.js!&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
-<h1 id="v-if-v-else-v-show指令"><a href="#v-if-v-else-v-show指令" class="headerlink" title="v-if v-else v-show指令"></a>v-if v-else v-show指令</h1><h2 id="v-if的使用"><a href="#v-if的使用" class="headerlink" title="v-if的使用"></a>v-if的使用</h2><p>条件判断使用v-if指令:<br>通过toggle函数切换show的值。通过v-if语句,当show是true的时候.显示当前元素</p>
+<h1 id="v-if-amp-v-else-amp-v-show指令"><a href="#v-if-amp-v-else-amp-v-show指令" class="headerlink" title="v-if &amp; v-else &amp; v-show指令"></a>v-if &amp; v-else &amp; v-show指令</h1><h2 id="v-if的使用"><a href="#v-if的使用" class="headerlink" title="v-if的使用"></a>v-if的使用</h2><p>条件判断使用v-if指令:<br>通过toggle函数切换show的值。通过v-if语句,当show是true的时候.显示当前元素</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;条件语句&lt;/title&gt;</span><br><span class="line">&lt;script src=&quot;vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line"> &lt;button v-on:click=&quot;toggle&quot;&gt;隐藏或显示&lt;/button&gt;</span><br><span class="line"> &lt;div v-if=&quot;show&quot;&gt;学习Vue&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    show:true</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">      toggle: function()&#123;</span><br><span class="line">          this.show=!this.show;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="v-else的使用"><a href="#v-else的使用" class="headerlink" title="v-else的使用"></a>v-else的使用</h2><p>可以用 v-else 指令给 v-if 添加一个 “else” 块：</p>
@@ -564,8 +564,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/17/HTML基础/" rel="prev" title="HTML基础">
-                HTML基础 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/17/Vue生命周期/" rel="prev" title="Vue生命周期">
+                Vue生命周期 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -652,7 +652,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -663,7 +663,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -674,7 +674,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -764,7 +764,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编写第一个Hello-Vue-js代码"><span class="nav-number">1.</span> <span class="nav-text">编写第一个Hello Vue.js代码:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-if-v-else-v-show指令"><span class="nav-number">2.</span> <span class="nav-text">v-if v-else v-show指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v-if的使用"><span class="nav-number">2.1.</span> <span class="nav-text">v-if的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-else的使用"><span class="nav-number">2.2.</span> <span class="nav-text">v-else的使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-for指令"><span class="nav-number">3.</span> <span class="nav-text">v-for指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-text-amp-v-html指令"><span class="nav-number">4.</span> <span class="nav-text">v-text &amp; v-html指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-on指令"><span class="nav-number">5.</span> <span class="nav-text">v-on指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-model指令"><span class="nav-number">6.</span> <span class="nav-text">v-model指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-bind指令"><span class="nav-number">7.</span> <span class="nav-text">v-bind指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-pre-amp-v-cloak-amp-v-once-指令"><span class="nav-number">8.</span> <span class="nav-text">v-pre &amp; v-cloak &amp; v-once 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v-pre"><span class="nav-number">8.1.</span> <span class="nav-text">v-pre</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-cloak"><span class="nav-number">8.2.</span> <span class="nav-text">v-cloak</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-once"><span class="nav-number">8.3.</span> <span class="nav-text">v-once</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编写第一个Hello-Vue-js代码"><span class="nav-number">1.</span> <span class="nav-text">编写第一个Hello Vue.js代码:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-if-amp-v-else-amp-v-show指令"><span class="nav-number">2.</span> <span class="nav-text">v-if &amp; v-else &amp; v-show指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v-if的使用"><span class="nav-number">2.1.</span> <span class="nav-text">v-if的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-else的使用"><span class="nav-number">2.2.</span> <span class="nav-text">v-else的使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-for指令"><span class="nav-number">3.</span> <span class="nav-text">v-for指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-text-amp-v-html指令"><span class="nav-number">4.</span> <span class="nav-text">v-text &amp; v-html指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-on指令"><span class="nav-number">5.</span> <span class="nav-text">v-on指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-model指令"><span class="nav-number">6.</span> <span class="nav-text">v-model指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-bind指令"><span class="nav-number">7.</span> <span class="nav-text">v-bind指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-pre-amp-v-cloak-amp-v-once-指令"><span class="nav-number">8.</span> <span class="nav-text">v-pre &amp; v-cloak &amp; v-once 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v-pre"><span class="nav-number">8.1.</span> <span class="nav-text">v-pre</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-cloak"><span class="nav-number">8.2.</span> <span class="nav-text">v-cloak</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-once"><span class="nav-number">8.3.</span> <span class="nav-text">v-once</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -811,7 +811,7 @@
     
       <span class="post-meta-item-text">全站字数:</span>
     
-    <span title="Site words total count">19.9k</span>
+    <span title="Site words total count">52k</span>
   
 </div>
 
